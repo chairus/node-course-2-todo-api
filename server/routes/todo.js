@@ -24,6 +24,7 @@ router.get("/todos", (req, res) => {
     });
 });
 
+// Show - display a single todo
 router.get("/todos/:id", (req, res) => {
     var id = req.params.id;
     
@@ -34,6 +35,26 @@ router.get("/todos/:id", (req, res) => {
     
     // Find the todo with the associated ID
     Todo.findById(id).then((todo) => {
+        if (!todo) {
+            res.status(404).send();
+        }
+        res.send({todo});
+    }).catch(e => {
+        res.status(400).send();
+    })
+});
+
+// Delete - remove a specific todo
+router.delete("/todos/:id", (req, res) => {
+    var id = req.params.id;
+    
+    // Validate ID
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+    }
+    
+    // Find the todo with the associated ID
+    Todo.findByIdAndRemove(id).then((todo) => {
         if (!todo) {
             res.status(404).send();
         }
