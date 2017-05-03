@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const router = require("express").Router();
 const { Todo } = require("../models/todo");
 const { User } = require("../models/user");
@@ -53,7 +54,7 @@ router.delete("/todos/:id", (req, res) => {
         res.status(404).send();
     }
     
-    // Find the todo with the associated ID
+    // Find the todo with the associated ID and remove it
     Todo.findByIdAndRemove(id).then((todo) => {
         if (!todo) {
             res.status(404).send();
@@ -62,6 +63,33 @@ router.delete("/todos/:id", (req, res) => {
     }).catch(e => {
         res.status(400).send();
     })
+});
+
+// PATCH - update content of a todo
+router.patch("/todos/:id", (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['text', 'completed']);
+    
+    // Validate ID
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+    }
+    
+    // Update "completedAt" property if user has compeleted todo
+    if (_.isBoolean(body.completed) && body.completed) {
+        body.completedAt = (new Date()).getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    }
+    
+    // Find the todo with the associated ID and update it
+    Todo.findByIdAndUpdate(id, { $set: body }, { new: true }).then((todo) => {
+        if (!todo) {
+            res.status(404).send();
+        }
+        res.send({todo});
+    }).catch(e => res.status(400).send());
 });
 
 module.exports = router;
