@@ -6,6 +6,7 @@ var express         = require("express");
 var todoRoutes      = require("./routes/todo"); // Exporting the todo routes
 
 var app = express();
+const port = process.env.PORT || 3000;
 
 // Parses the body of the request from the client as JSON object
 app.use(bodyParser.json());
@@ -13,8 +14,8 @@ app.use(bodyParser.json());
 // Setting express to use the todoRoutes
 app.use(todoRoutes);
 
-app.listen(3000, () => {
-    console.log("Server has started. Listening on PORT 3000");
+app.listen(port, () => {
+    console.log(`Server has started. Listening on PORT ${port}`);
 });
 
 module.exports = { app };
