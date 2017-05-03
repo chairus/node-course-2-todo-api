@@ -150,7 +150,7 @@ describe("PATCH /todos/:id", () => {
     it("should return an updated todo with completed property from false to true", (done) => {
         var id = todos[0]._id.toHexString();
         var body = {
-            text: "Lunch with Christal",
+            text: "This is from test",
             completed: true
         };
         
@@ -183,7 +183,7 @@ describe("PATCH /todos/:id", () => {
     it("should return an updated todo with completed property from true to false", (done) => {
         var id = todos[0]._id.toHexString();
         var body = {
-            text: "Dinner with Christal",
+            text: "Again, this is from test",
             completed: false
         };
         
