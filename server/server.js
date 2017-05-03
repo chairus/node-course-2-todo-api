@@ -6,7 +6,7 @@ var express         = require("express");
 var todoRoutes      = require("./routes/todo"); // Exporting the todo routes
 
 var app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // Parses the body of the request from the client as JSON object
 app.use(bodyParser.json());

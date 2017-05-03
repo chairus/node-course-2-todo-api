@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
-    "test": "mocha server/**/*.test.js",
+    "start": "export \"MONGODB_URI=mongodb://cyrus:Mfdtda-06@ds129651.mlab.com:29651/todos_app\" && node server/server.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js",
     "test-watch": "sudo nodemon --exec 'npm test'"
   },
   "engines": {
