@@ -1,9 +1,9 @@
 const _ = require("lodash");
-const router = require("express").Router();
 const { Todo } = require("../models/todo");
 const { User } = require("../models/user");
 const { ObjectID } = require("mongodb");
 
+var router = require("express").Router();
 
 // Create - add a todo in the list
 router.post("/todos", (req, res) => {
